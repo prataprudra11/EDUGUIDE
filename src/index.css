@@ -13,28 +13,33 @@
 }
 
 @layer components {
-  .glass-card {
-    @apply bg-white/80 backdrop-blur-md border border-slate-200/50 shadow-sm rounded-2xl transition-all duration-300;
+  /* Replaced glass-card with panel-card */
+  .panel-card {
+    @apply bg-white border border-slate-200 shadow-sm rounded-md transition-all duration-200;
   }
   
-  .dark .glass-card {
-    @apply bg-slate-800/80 border-slate-700/50 shadow-none;
+  .dark .panel-card {
+    @apply bg-surface-dark border-slate-700/80 shadow-none;
   }
 
   .btn-primary {
-    @apply px-4 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors shadow-sm;
+    @apply px-4 py-2 bg-primary-800 text-white rounded-md font-semibold hover:bg-primary-900 transition-colors shadow-sm border border-primary-900;
+  }
+
+  .dark .btn-primary {
+    @apply bg-primary-700 hover:bg-primary-600 border-primary-800;
   }
 
   .nav-item {
-    @apply flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 font-medium transition-all;
+    @apply flex items-center gap-3 px-4 py-3 rounded-md text-slate-600 font-medium transition-all border-l-4 border-transparent;
   }
 
   .nav-item:hover {
-    @apply bg-slate-100 text-primary-600;
+    @apply bg-slate-100 text-primary-800 border-slate-300;
   }
 
   .nav-item.active {
-    @apply bg-primary-50 text-primary-700;
+    @apply bg-primary-50 text-primary-900 border-primary-800;
   }
 
   .dark .nav-item {
@@ -42,10 +47,10 @@
   }
 
   .dark .nav-item:hover {
-    @apply bg-slate-800 text-primary-400;
+    @apply bg-surface-dark text-primary-300 border-slate-600;
   }
 
   .dark .nav-item.active {
-    @apply bg-primary-900/30 text-primary-400;
+    @apply bg-primary-900/30 text-primary-300 border-primary-500;
   }
 }
