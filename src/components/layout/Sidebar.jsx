@@ -1,6 +1,7 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { 
+  Home,
   LayoutDashboard, 
   Target, 
   Map, 
@@ -14,11 +15,12 @@ import { useTheme } from '../../context/ThemeContext';
 import { cn } from '../../utils/cn';
 
 const navItems = [
+  { icon: Home, label: 'Back to Website', path: '/' },
   { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },
-  { icon: Target, label: 'Stream Selection', path: '/stream-selection' },
-  { icon: Map, label: 'Career Roadmap', path: '/career-roadmap' },
-  { icon: BookOpen, label: 'Entrance Exams', path: '/entrance-exams' },
-  { icon: GraduationCap, label: 'Colleges & Cutoffs', path: '/colleges-cutoffs' },
+  { icon: Target, label: 'Stream Selection', path: '/dashboard/stream-selection' },
+  { icon: Map, label: 'Career Roadmap', path: '/dashboard/career-roadmap' },
+  { icon: BookOpen, label: 'Entrance Exams', path: '/dashboard/entrance-exams' },
+  { icon: GraduationCap, label: 'Colleges & Cutoffs', path: '/dashboard/colleges-cutoffs' },
 ];
 
 export default function Sidebar() {
@@ -28,12 +30,12 @@ export default function Sidebar() {
     <aside className="w-64 fixed inset-y-0 left-0 bg-white dark:bg-surface-dark border-r border-slate-200 dark:border-slate-800 flex flex-col transition-colors duration-300 z-10 hidden md:flex">
       {/* Logo */}
       <div className="h-16 flex items-center px-6 border-b border-slate-200 dark:border-slate-800 bg-primary-900">
-        <div className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2 group">
           <div className="w-8 h-8 bg-white rounded flex items-center justify-center">
             <span className="text-primary-900 font-bold text-xl">E</span>
           </div>
           <span className="text-xl font-bold text-white tracking-wide">EduGuide</span>
-        </div>
+        </Link>
       </div>
 
       {/* User Info */}
@@ -53,6 +55,7 @@ export default function Sidebar() {
           <NavLink
             key={item.path}
             to={item.path}
+            end={item.path === '/' || item.path === '/dashboard'}
             className={({ isActive }) =>
               cn(
                 'nav-item',

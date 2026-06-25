@@ -22,17 +22,23 @@ export default {
           800: '#243b53',
           900: '#102a43', // Deep Navy Blue
         },
+        mutedGreen: {
+          500: '#4d7c64',
+          600: '#3d6350',
+          700: '#2e4a3c', 
+        },
+        warmGray: colors.stone,
         background: {
-          light: '#f4f7f6', // Very subtle gray-green/blue tint
-          dark: '#0b1320', // Very dark navy
+          light: '#fafaf9', // stone-50 (warm gray background)
+          dark: '#1c1917', // stone-900
         },
         surface: {
           light: '#ffffff',
-          dark: '#162438',
+          dark: '#292524', // stone-800
         }
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Lato', 'system-ui', 'sans-serif'],
       }
     },
   },
