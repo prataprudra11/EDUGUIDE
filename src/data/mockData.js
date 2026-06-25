@@ -139,3 +139,25 @@ export const collegesData = [
     ]
   }
 ];
+
+export const performanceData = [
+  { month: 'Jan', score: 65 },
+  { month: 'Feb', score: 68 },
+  { month: 'Mar', score: 74 },
+  { month: 'Apr', score: 82 },
+  { month: 'May', score: 86 },
+];
+
+export const skillData = [
+  { subject: 'Analytical', score: 90 },
+  { subject: 'Creative', score: 65 },
+  { subject: 'Aptitude', score: 85 },
+  { subject: 'Verbal', score: 70 },
+  { subject: 'Memory', score: 80 },
+];
+
+export const cutoffData = [
+  { college: 'IIT Bombay', branch: 'Computer Science', cutoff2023: '66', cutoff2022: '60', trend: 'Up' },
+  { college: 'IIT Delhi', branch: 'Computer Science', cutoff2023: '115', cutoff2022: '102', trend: 'Down' },
+  { college: 'NIT Trichy', branch: 'Computer Science', cutoff2023: '996', cutoff2022: '714', trend: 'Down' },
+];

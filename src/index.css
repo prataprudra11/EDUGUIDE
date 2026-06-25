@@ -2,55 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 @layer base {
   body {
-    @apply bg-background-light text-slate-800 antialiased transition-colors duration-300;
+    @apply bg-background-deep text-on-surface font-sans antialiased;
   }
-
-  .dark body {
-    @apply bg-background-dark text-slate-200;
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight text-white;
   }
 }
 
 @layer components {
-  /* Replaced glass-card with panel-card */
-  .panel-card {
-    @apply bg-white border border-slate-200 shadow-sm rounded-md transition-all duration-200;
-  }
-  
-  .dark .panel-card {
-    @apply bg-surface-dark border-slate-700/80 shadow-none;
+  /* Utility class for Stitch's level 1 cards/sections */
+  .surface-glass {
+    background-color: rgba(26, 26, 26, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(250, 250, 247, 0.1);
   }
 
-  .btn-primary {
-    @apply px-4 py-2 bg-primary-800 text-white rounded-md font-semibold hover:bg-primary-900 transition-colors shadow-sm border border-primary-900;
-  }
-
-  .dark .btn-primary {
-    @apply bg-primary-700 hover:bg-primary-600 border-primary-800;
+  /* Utility class for Stitch's level 2 modals/popovers */
+  .surface-glass-high {
+    background-color: rgba(35, 35, 35, 0.8);
+    backdrop-filter: blur(30px);
+    border: 1px solid rgba(250, 250, 247, 0.15);
   }
 
   .nav-item {
-    @apply flex items-center gap-3 px-4 py-3 rounded-md text-slate-600 font-medium transition-all border-l-4 border-transparent;
+    @apply flex items-center gap-3 px-4 py-3 rounded-md text-on-surface-variant hover:text-white hover:bg-surface-container transition-all duration-200;
   }
-
-  .nav-item:hover {
-    @apply bg-slate-100 text-primary-800 border-slate-300;
-  }
-
+  
   .nav-item.active {
-    @apply bg-primary-50 text-primary-900 border-primary-800;
+    @apply bg-surface-container text-primary-dim border-l-2 border-primary-dim font-medium;
+  }
+  
+  .btn-primary {
+    @apply bg-primary text-black font-bold px-6 py-3 rounded hover:bg-primary-dim transition-all shadow-[0_0_15px_rgba(235,154,1,0.3)] hover:shadow-[0_0_25px_rgba(235,154,1,0.5)];
   }
 
-  .dark .nav-item {
-    @apply text-slate-400;
+  .btn-ghost {
+    @apply bg-transparent border border-white text-white font-bold px-6 py-3 rounded hover:border-secondary-dim hover:text-secondary-dim hover:shadow-[0_0_15px_rgba(192,193,255,0.2)] transition-all;
   }
+}
 
-  .dark .nav-item:hover {
-    @apply bg-surface-dark text-primary-300 border-slate-600;
-  }
-
-  .dark .nav-item.active {
-    @apply bg-primary-900/30 text-primary-300 border-primary-500;
-  }
+/* Custom Scrollbar for dark theme */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #353535;
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #524434;
 }

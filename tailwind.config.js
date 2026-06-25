@@ -1,5 +1,3 @@
-import colors from 'tailwindcss/colors';
-
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -10,35 +8,51 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: {
-          50: '#f0f4f8',
-          100: '#d9e2ec',
-          200: '#bcccdc',
-          300: '#9fb3c8',
-          400: '#829ab1',
-          500: '#627d98',
-          600: '#486581',
-          700: '#334e68',
-          800: '#243b53',
-          900: '#102a43', // Deep Navy Blue
-        },
-        mutedGreen: {
-          500: '#4d7c64',
-          600: '#3d6350',
-          700: '#2e4a3c', 
-        },
-        warmGray: colors.stone,
         background: {
-          light: '#fafaf9', // stone-50 (warm gray background)
-          dark: '#1c1917', // stone-900
+          DEFAULT: '#131313',
+          deep: '#0A0A0B',
         },
+        primary: {
+          DEFAULT: '#eb9a01', // primary-container
+          fixed: '#ffddb5',
+          dim: '#ffb958', // primary
+        },
+        secondary: {
+          DEFAULT: '#3131c0', // secondary-container
+          fixed: '#e1e0ff',
+          dim: '#c0c1ff', // secondary
+        },
+        tertiary: {
+          DEFAULT: '#ca93ff',
+          fixed: '#f0dbff',
+          dim: '#ddb7ff',
+        },
+        error: '#ffb4ab',
+        'neon-cyan': '#00F0FF',
+        'off-white': '#FAFAF7',
         surface: {
-          light: '#ffffff',
-          dark: '#292524', // stone-800
+          DEFAULT: '#131313',
+          dim: '#131313',
+          bright: '#393939',
+          'container-lowest': '#0e0e0e',
+          'container-low': '#1c1b1b',
+          container: '#20201f',
+          'container-high': '#2a2a2a',
+          'container-highest': '#353535',
+        },
+        'on-surface': {
+          DEFAULT: '#e5e2e1',
+          variant: '#d8c3ad',
+        },
+        outline: {
+          DEFAULT: '#a08e7a',
+          variant: '#524434',
         }
       },
       fontFamily: {
-        sans: ['Lato', 'system-ui', 'sans-serif'],
+        sans: ['DM Sans', 'sans-serif'],
+        display: ['Syne', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
       }
     },
   },

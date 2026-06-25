@@ -16,7 +16,6 @@ import CollegesCutoffs from './pages/CollegesCutoffs';
 // Public Pages
 import LandingPage from './pages/public/LandingPage';
 import AboutUs from './pages/public/AboutUs';
-import BookingPortal from './pages/public/BookingPortal';
 import ContactForm from './pages/public/ContactForm';
 
 function App() {
@@ -28,7 +27,6 @@ function App() {
           <Route path="/" element={<PublicLayout />}>
             <Route index element={<LandingPage />} />
             <Route path="about" element={<AboutUs />} />
-            <Route path="booking" element={<BookingPortal />} />
             <Route path="contact" element={<ContactForm />} />
           </Route>
 
