@@ -1,61 +1,69 @@
 import React, { useState } from 'react';
 import { upcomingExams } from '../data/mockData';
-import { Search, Filter, Calendar as CalendarIcon, BookmarkPlus, ChevronDown } from 'lucide-react';
-import { cn } from '../utils/cn';
+import { Search, Filter, Calendar as CalendarIcon, BookmarkPlus, ChevronDown, BookOpen } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function EntranceExams() {
   const [filterSpec, setFilterSpec] = useState('All');
   const [filterDiff, setFilterDiff] = useState('All');
+  const [searchTerm, setSearchTerm] = useState('');
 
   const filteredExams = upcomingExams.filter(exam => {
     if (filterSpec !== 'All' && exam.category !== filterSpec) return false;
     if (filterDiff !== 'All' && exam.difficulty !== filterDiff) return false;
+    if (searchTerm && !exam.name.toLowerCase().includes(searchTerm.toLowerCase()) && !exam.fullName.toLowerCase().includes(searchTerm.toLowerCase())) return false;
     return true;
   });
 
+  const difficultyColor = (diff) => {
+    switch(diff) {
+      case 'Extreme': return 'bg-coral/10 text-coral dark:bg-coral/20 border-coral/20';
+      case 'Hard': return 'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400 border-amber-200 dark:border-amber-500/20';
+      case 'Moderate': return 'bg-mint/10 text-mint dark:bg-mint/20 border-mint/20';
+      default: return 'bg-slate-100 text-slate-500 dark:bg-slate-700 dark:text-slate-400 border-slate-200 dark:border-white/10';
+    }
+  };
+
   return (
-    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <header className="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+    <div className="space-y-6">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
-            Entrance Exams Hub <BookOpenIcon className="w-8 h-8 text-primary-800" />
+          <h1 className="text-2xl lg:text-3xl font-display font-bold flex items-center gap-3">
+            Entrance Exams Hub
           </h1>
-          <p className="text-slate-600 dark:text-slate-400 mt-2">
+          <p className="text-slate-500 dark:text-slate-400 font-sans text-sm mt-1">
             Search major standardized assessments, study strategies, and track deadlines.
           </p>
         </div>
-        <div className="relative w-full md:w-80">
-          <Search className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+        <div className="relative w-full md:w-72">
+          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
           <input 
             type="text" 
-            placeholder="Search exams, strategies..." 
-            className="w-full pl-10 pr-4 py-2 bg-white dark:bg-surface-dark border border-slate-300 dark:border-slate-700 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-800 text-slate-900 dark:text-white font-medium"
+            placeholder="Search exams..." 
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="input-field pl-9"
           />
         </div>
-      </header>
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        {/* Left Column - Filters & Calendar */}
-        <div className="lg:col-span-4 space-y-6">
-          <div className="panel-card p-6 border-t-4 border-t-slate-700">
-            <h3 className="font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-4">
-              <Filter className="w-4 h-4" /> Filter Settings
+        {/* Left Column — Filters & Calendar */}
+        <div className="lg:col-span-4 space-y-4">
+          <div className="card p-5">
+            <h3 className="font-display font-bold text-sm flex items-center gap-2 mb-4">
+              <Filter className="w-4 h-4 text-orchid" /> Filters
             </h3>
             
-            <div className="mb-6">
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-widest">By Specialization</p>
+            <div className="mb-5">
+              <p className="section-label mb-2.5">By Specialization</p>
               <div className="flex flex-wrap gap-2">
                 {['All', 'Engineering', 'Medical', 'Law', 'Management'].map(spec => (
                   <button 
                     key={spec}
                     onClick={() => setFilterSpec(spec)}
-                    className={cn(
-                      "px-3 py-1.5 rounded-sm text-sm font-bold transition-colors border",
-                      filterSpec === spec 
-                        ? "bg-primary-900 text-white border-primary-900" 
-                        : "bg-white dark:bg-surface-dark text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-600 hover:border-slate-400"
-                    )}
+                    className={`chip ${filterSpec === spec ? 'chip-active' : 'chip-inactive'}`}
                   >
                     {spec}
                   </button>
@@ -64,18 +72,13 @@ export default function EntranceExams() {
             </div>
 
             <div>
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-widest">By Difficulty</p>
+              <p className="section-label mb-2.5">By Difficulty</p>
               <div className="flex flex-wrap gap-2">
                 {['All', 'Extreme', 'Hard', 'Moderate'].map(diff => (
                   <button 
                     key={diff}
                     onClick={() => setFilterDiff(diff)}
-                    className={cn(
-                      "px-3 py-1.5 rounded-sm text-sm font-bold transition-colors border",
-                      filterDiff === diff 
-                        ? "bg-slate-800 text-white border-slate-800" 
-                        : "bg-white dark:bg-surface-dark text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-600 hover:border-slate-400"
-                    )}
+                    className={`chip ${filterDiff === diff ? 'chip-active' : 'chip-inactive'}`}
                   >
                     {diff}
                   </button>
@@ -84,106 +87,108 @@ export default function EntranceExams() {
             </div>
           </div>
 
-          <div className="panel-card p-6 border-t-4 border-t-slate-300">
-            <h3 className="font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-4">
-              <CalendarIcon className="w-4 h-4" /> Exam Date Tracker
+          <div className="card p-5">
+            <h3 className="font-display font-bold text-sm flex items-center gap-2 mb-4">
+              <CalendarIcon className="w-4 h-4 text-orchid" /> Exam Calendar
             </h3>
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4 border-b border-slate-200 dark:border-slate-700 pb-2">June 2026</p>
-            {/* Mock Calendar Grid */}
-            <div className="grid grid-cols-7 gap-1 text-center mb-2">
-              {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map(d => (
-                <div key={d} className="text-xs font-bold text-slate-400">{d}</div>
+            <p className="section-label mb-3">June 2026</p>
+            {/* Calendar Header */}
+            <div className="grid grid-cols-7 gap-1 text-center mb-1.5">
+              {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((d, i) => (
+                <div key={i} className="text-[10px] font-mono text-slate-400 dark:text-slate-500 font-medium">{d}</div>
               ))}
             </div>
-            <div className="grid grid-cols-7 gap-1 text-center text-sm font-medium">
+            {/* Calendar Days */}
+            <div className="grid grid-cols-7 gap-1 text-center text-sm font-sans">
               {[...Array(30)].map((_, i) => {
                 const day = i + 1;
                 const isExamDay = day === 8 || day === 28;
                 return (
                   <div 
                     key={day} 
-                    className={cn(
-                      "aspect-square flex items-center justify-center rounded-sm transition-colors border",
+                    className={`aspect-square flex items-center justify-center rounded-lg text-xs transition-colors ${
                       isExamDay 
-                        ? "bg-primary-900 text-white font-bold border-primary-900 shadow-sm" 
-                        : "bg-transparent text-slate-700 dark:text-slate-300 border-transparent hover:border-slate-300 dark:hover:border-slate-600 cursor-pointer"
-                    )}
+                        ? "bg-horizon text-white font-bold shadow-sm" 
+                        : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/5 cursor-pointer"
+                    }`}
                   >
                     {day}
                   </div>
                 )
               })}
             </div>
+            {/* Legend */}
+            <div className="mt-3 pt-3 border-t border-slate-100 dark:border-white/5 flex items-center gap-2 text-xs text-slate-400">
+              <div className="w-2.5 h-2.5 rounded bg-horizon" />
+              <span>Exam Day</span>
+            </div>
           </div>
         </div>
 
-        {/* Right Column - Exam List */}
+        {/* Right Column — Exam Cards */}
         <div className="lg:col-span-8 space-y-4">
-          {filteredExams.map(exam => (
-            <div key={exam.id} className="panel-card p-6 transition-all hover:border-primary-400">
-              <div className="flex flex-col md:flex-row justify-between items-start mb-4 gap-4">
+          {filteredExams.map((exam, index) => (
+            <motion.div 
+              key={exam.id} 
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: index * 0.08 }}
+              className="card card-hover p-6"
+            >
+              <div className="flex flex-col md:flex-row justify-between items-start gap-4 mb-4">
                 <div>
-                  <h2 className="text-xl font-bold text-slate-900 dark:text-white">{exam.name}</h2>
-                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400 mt-1">{exam.fullName}</p>
-                  <div className="flex gap-2 mt-3">
-                    <span className="px-2 py-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold rounded-sm uppercase tracking-wider">
+                  <h2 className="text-xl font-display font-bold">{exam.name}</h2>
+                  <p className="text-sm font-sans text-slate-500 dark:text-slate-400 mt-0.5">{exam.fullName}</p>
+                  <div className="flex flex-wrap gap-2 mt-3">
+                    <span className="chip chip-inactive text-[10px]">
                       {exam.category}
                     </span>
-                    <span className="px-2 py-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold rounded-sm uppercase tracking-wider">
-                      Difficulty: {exam.difficulty}
+                    <span className={`chip text-[10px] ${difficultyColor(exam.difficulty)}`}>
+                      {exam.difficulty}
                     </span>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 w-full md:w-auto">
-                  <div className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md text-slate-800 dark:text-slate-200 font-bold text-sm">
-                    <CalendarIcon className="w-4 h-4 text-primary-800 dark:text-primary-400" />
-                    {exam.daysLeft} Days Left
+                  {/* DESIGN: Countdown ring — Progress Spine motif on each exam card */}
+                  <div className="flex-1 md:flex-none flex items-center gap-3 px-3.5 py-2 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-white/10 rounded-lg">
+                    <div className="relative flex-shrink-0">
+                      <svg className="w-8 h-8 -rotate-90" viewBox="0 0 32 32">
+                        <circle cx="16" cy="16" r="13" fill="none" strokeWidth="2" className="stroke-slate-200 dark:stroke-slate-600" />
+                        <circle cx="16" cy="16" r="13" fill="none" strokeWidth="2" strokeDasharray="81.7" strokeDashoffset={81.7 - (81.7 * Math.min(exam.daysLeft, 60) / 60)} strokeLinecap="round" className="stroke-coral" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-slate-900 dark:text-white font-mono">{exam.daysLeft} days</p>
+                      <p className="text-[10px] text-slate-400">remaining</p>
+                    </div>
                   </div>
-                  <button className="p-2 border border-slate-200 dark:border-slate-700 bg-white dark:bg-surface-dark hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-500 rounded-md transition-colors">
-                    <BookmarkPlus className="w-5 h-5" />
+                  {/* TODO: Wire up — requires bookmark API */}
+                  <button className="p-2 border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-400 hover:text-horizon dark:hover:text-horizon-400 rounded-lg transition-colors">
+                    <BookmarkPlus className="w-4 h-4" />
                   </button>
                 </div>
               </div>
               
-              <div className="mt-6 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-md border border-slate-100 dark:border-slate-700/50">
-                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-widest">Eligibility & Admission Rules:</p>
-                <p className="text-sm text-slate-800 dark:text-slate-200 leading-relaxed font-medium">{exam.eligibility}</p>
+              <div className="p-4 bg-slate-50 dark:bg-slate-700/30 rounded-lg border border-slate-100 dark:border-white/5">
+                <p className="section-label mb-1.5">Eligibility & Admission Rules</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-sans">{exam.eligibility}</p>
               </div>
 
-              <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 text-center">
-                <button className="text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-primary-800 dark:hover:text-primary-400 flex items-center justify-center gap-1 mx-auto uppercase tracking-wider">
-                  Expand Syllabus & Trackers <ChevronDown className="w-4 h-4" />
+              <div className="mt-4 pt-3 border-t border-slate-100 dark:border-white/5 text-center">
+                <button className="text-xs font-mono text-slate-400 hover:text-horizon dark:hover:text-horizon-400 flex items-center justify-center gap-1 mx-auto transition-colors">
+                  Expand Syllabus & Trackers <ChevronDown className="w-3.5 h-3.5" />
                 </button>
               </div>
-            </div>
+            </motion.div>
           ))}
           {filteredExams.length === 0 && (
-            <div className="panel-card p-12 text-center border-dashed border-2">
-              <p className="text-slate-500 font-medium">No exams match your criteria.</p>
+            <div className="card p-12 text-center border-dashed border-2 border-slate-200 dark:border-white/10">
+              <BookOpen className="w-8 h-8 text-slate-300 dark:text-slate-600 mx-auto mb-3" />
+              <p className="text-slate-400 dark:text-slate-500 font-sans">No exams match your criteria. Try adjusting the filters.</p>
             </div>
           )}
         </div>
       </div>
     </div>
-  );
-}
-
-function BookOpenIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
-      <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
-    </svg>
   );
 }

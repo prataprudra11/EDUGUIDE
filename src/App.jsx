@@ -17,6 +17,8 @@ import CollegesCutoffs from './pages/CollegesCutoffs';
 import LandingPage from './pages/public/LandingPage';
 import AboutUs from './pages/public/AboutUs';
 import ContactForm from './pages/public/ContactForm';
+import Login from './pages/public/Login';
+import Signup from './pages/public/Signup';
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
             <Route index element={<LandingPage />} />
             <Route path="about" element={<AboutUs />} />
             <Route path="contact" element={<ContactForm />} />
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<Signup />} />
           </Route>
 
           {/* Student Dashboard Routes */}

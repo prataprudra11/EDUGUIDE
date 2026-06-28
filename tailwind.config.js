@@ -8,52 +8,93 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: {
-          DEFAULT: '#131313',
-          deep: '#0A0A0B',
+        // --- Primary: Horizon Blue ---
+        horizon: {
+          50:  '#EFF6FF',
+          100: '#DBEAFE',
+          200: '#BFDBFE',
+          300: '#93C5FD',
+          400: '#60A5FA',
+          500: '#3B82F6',
+          DEFAULT: '#2563EB',
+          700: '#1D4ED8',
+          800: '#1E40AF',
+          900: '#1E3A8A',
         },
-        primary: {
-          DEFAULT: '#eb9a01', // primary-container
-          fixed: '#ffddb5',
-          dim: '#ffb958', // primary
+        // --- Secondary: Orchid Purple ---
+        orchid: {
+          50:  '#F5F3FF',
+          100: '#EDE9FE',
+          200: '#DDD6FE',
+          300: '#C4B5FD',
+          400: '#A78BFA',
+          DEFAULT: '#7C3AED',
+          600: '#6D28D9',
+          700: '#5B21B6',
+          800: '#4C1D95',
         },
-        secondary: {
-          DEFAULT: '#3131c0', // secondary-container
-          fixed: '#e1e0ff',
-          dim: '#c0c1ff', // secondary
+        // --- Success: Mint Green ---
+        mint: {
+          50:  '#ECFDF5',
+          100: '#D1FAE5',
+          200: '#A7F3D0',
+          DEFAULT: '#10B981',
+          600: '#059669',
+          700: '#047857',
         },
-        tertiary: {
-          DEFAULT: '#ca93ff',
-          fixed: '#f0dbff',
-          dim: '#ddb7ff',
+        // --- Danger/Urgency: Coral ---
+        coral: {
+          50:  '#FFF1F2',
+          100: '#FFE4E6',
+          200: '#FECDD3',
+          DEFAULT: '#F43F5E',
+          600: '#E11D48',
+          700: '#BE123C',
         },
-        error: '#ffb4ab',
-        'neon-cyan': '#00F0FF',
-        'off-white': '#FAFAF7',
-        surface: {
-          DEFAULT: '#131313',
-          dim: '#131313',
-          bright: '#393939',
-          'container-lowest': '#0e0e0e',
-          'container-low': '#1c1b1b',
-          container: '#20201f',
-          'container-high': '#2a2a2a',
-          'container-highest': '#353535',
+        // --- Neutrals: Slate scale ---
+        slate: {
+          50:  '#F8FAFC',
+          100: '#F1F5F9',
+          200: '#E2E8F0',
+          300: '#CBD5E1',
+          400: '#94A3B8',
+          500: '#64748B',
+          600: '#475569',
+          700: '#334155',
+          800: '#1E293B',
+          900: '#0F172A',
+          950: '#020617',
         },
-        'on-surface': {
-          DEFAULT: '#e5e2e1',
-          variant: '#d8c3ad',
-        },
-        outline: {
-          DEFAULT: '#a08e7a',
-          variant: '#524434',
-        }
       },
       fontFamily: {
         sans: ['DM Sans', 'sans-serif'],
         display: ['Syne', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
-      }
+      },
+      boxShadow: {
+        'card': '0 1px 3px 0 rgba(0,0,0,0.06), 0 1px 2px -1px rgba(0,0,0,0.06)',
+        'card-hover': '0 4px 12px -2px rgba(0,0,0,0.08), 0 2px 6px -2px rgba(0,0,0,0.05)',
+        'card-dark': '0 1px 3px 0 rgba(0,0,0,0.3), 0 1px 2px -1px rgba(0,0,0,0.2)',
+      },
+      keyframes: {
+        'spine-pulse': {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.6' },
+        },
+        'fade-in-up': {
+          '0%': { opacity: '0', transform: 'translateY(16px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        'ring-fill': {
+          '0%': { 'stroke-dashoffset': '251.2' },
+          '100%': { 'stroke-dashoffset': '0' },
+        },
+      },
+      animation: {
+        'spine-pulse': 'spine-pulse 2s ease-in-out infinite',
+        'fade-in-up': 'fade-in-up 0.5s ease-out forwards',
+        'ring-fill': 'ring-fill 1.5s ease-out forwards',
+      },
     },
   },
   plugins: [],
