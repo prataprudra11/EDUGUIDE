@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X, ArrowRight, Sun, Moon } from 'lucide-react';
 import { cn } from '../../utils/cn';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function PublicLayout() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const location = useLocation();
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -92,6 +94,13 @@ export default function PublicLayout() {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-3">
+            <button 
+              onClick={toggleTheme}
+              className="p-2.5 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 transition-colors mr-2"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? <Sun className="w-5 h-5 text-amber-500" /> : <Moon className="w-5 h-5 text-orchid" />}
+            </button>
             <Link to="/login" className="btn-ghost py-2.5">
               Log In
             </Link>
@@ -135,6 +144,16 @@ export default function PublicLayout() {
                 Sign Up
               </Link>
             </div>
+            <button 
+              onClick={toggleTheme}
+              className="flex items-center justify-center gap-2 w-full py-2.5 mt-2 rounded-lg text-sm text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 transition-colors border border-slate-200 dark:border-white/10"
+            >
+              {theme === 'dark' ? (
+                <><Sun className="w-4 h-4 text-amber-500" /> Light Mode</>
+              ) : (
+                <><Moon className="w-4 h-4 text-orchid" /> Dark Mode</>
+              )}
+            </button>
           </div>
         )}
       </header>
